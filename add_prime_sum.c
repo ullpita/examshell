@@ -95,7 +95,7 @@ void	add_prime_sum(char *str)
 int		main(int ac, char **av)
 {
 	if (ac != 2)
-		write(1, "\n", 1);
+		write(1, "0\n", 2);
 	else
 		add_prime_sum(av[1]);
 	return (0);

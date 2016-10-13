@@ -5,32 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: upierre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/03 20:16:22 by upierre-          #+#    #+#             */
-/*   Updated: 2016/10/03 20:32:49 by upierre-         ###   ########.fr       */
+/*   Created: 2016/10/13 15:34:13 by upierre-          #+#    #+#             */
+/*   Updated: 2016/10/13 15:47:40 by upierre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int		hidenp(char *str, char *found)
+void	hidenp(char *str, char *found)
 {
-	while (*found)
+	while (*str && *found)
 	{
 		if (*str == *found)
-		{
 			str++;
-			found++;
-			if (*str == '\0')
-			{
-				write(1, "1\n", 2);
-				return (1);
-			}
-		}
-		else
-			found++;
+		found++;
 	}
-	write(1, "0\n", 2);
-	return (0);
+	if (*str == '\0')
+		write(1, "1\n", 2);
+	else
+		write(1, "0\n", 2);
 }
 
 int		main(int ac, char **av)

@@ -55,9 +55,19 @@ int		rostring(char *str)
 
 int		main(int ac, char **av)
 {
-	if (ac != 2)
-		write(1, "\n", 1);
+	int i;
+
+	if (ac <= 1)
+			write(1, "\n", 1);
 	else
-		rostring(av[1]);
-	return(0);
+	{
+		i = 1;
+		while (i <= ac)
+		{
+			rostring(av[i]);
+			i++;
+		}
+		write(1, "\n", 1);
+	}
+	return (0);
 }

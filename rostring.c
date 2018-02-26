@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int		first(char *str)
+int		rostring(char *str)
 {
 	int		i;
 	int		j;
@@ -67,7 +67,7 @@ int		first(char *str)
 	return(0);
 }
 
-int		main(int ac, char **av)
+int		rostring(int ac, char **av)
 {
 	if (ac >= 2)
 		first(av[1]);

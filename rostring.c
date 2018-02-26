@@ -3,71 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   rostring.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upierre- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/19 16:45:57 by upierre-          #+#    #+#             */
-/*   Updated: 2017/05/19 18:39:44 by upierre-         ###   ########.fr       */
+/*   Created: 2018/02/13 11:31:00 by exam              #+#    #+#             */
+/*   Updated: 2018/02/13 12:03:03 by exam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <unistd.h>
 
-int		rostring(char *str)
+int		first(char *str)
 {
 	int		i;
 	int		j;
 	int		k;
+	int		c;
 
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-		i++;
-	j = i;
-	while (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-		i++;
-	k = i;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\0')
+	while (str[i] == ' ' || str[i] == '\t')
 	{
-		if (str[i] != '\0')
-			i++;
+		i++;
 		if (str[i] == '\0')
-		{
-			write(1, &str[j], (k - j));
 			return(0);
-		}
 	}
-	while (str[i])
+	k = i;
+	j = 0;
+	while (str[i] != ' ' && str[i] != '\t' && str[i])
 	{
-		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-		{
-			while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-				i++;
-			if (str[i])
-				write(1, " ", 1);
-		}
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-			write(1, &str[i], 1);
+		j++;
 		i++;
 	}
-	write(1, " ", 1);
-	write(1, &str[j], (k - j));
+	c = i;
+	if (str[i] == '\0')
+	{
+		while (k < i)
+		{
+			write(1, &str[k], 1);
+			k++;
+		}
+		return(0);
+	}
+	else
+	{
+		while (str[c])
+		{
+			if (str[c] != ' ' && str[c] != '\t')
+			{
+				write(1, &str[c], 1);
+				if (str[c + 1] == ' ' || str[c + 1] == '\t')
+					write(1, " ", 1);
+			}
+			c++;
+		}
+	}
+	if (str[c - 1] != ' ' && str[c - 1] != '\t')
+		write(1, " ", 1);
+	while (k < i)
+	{
+		write(1, &str[k], 1);
+		k++;
+	}
 	return(0);
 }
 
 int		main(int ac, char **av)
 {
-	int i;
-
-	if (ac < 1)
-			write(1, "\n", 1);
-	else
-	{
-		i = 1;
-		while (i <= ac)
-		{
-			rostring(av[i]);
-			i++;
-		}
-		write(1, "\n", 1);
-	}
-	return (0);
+	if (ac >= 2)
+		first(av[1]);
+	write(1, "\n", 1);
+	return(0);
 }
